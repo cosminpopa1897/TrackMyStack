@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/display_product_label_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name:" />
+
+    <TextView
+        android:id="@+id/display_product_textView_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_weight="0.04" />
+
+    <TextView
+        android:id="@+id/display_product_label_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description:" />
+
+    <TextView
+        android:id="@+id/display_product_textView_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/display_product_label_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Price:" />
+
+    <TextView
+        android:id="@+id/display_product_textView_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_weight="0.04" />
+</LinearLayout>

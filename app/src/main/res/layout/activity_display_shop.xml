@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/display_shop_label_shopName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shop Name:" />
+
+    <TextView
+        android:id="@+id/display_shop_textView_shopName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04" />
+
+    <TextView
+        android:id="@+id/display_shop_label_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="City:" />
+
+    <TextView
+        android:id="@+id/display_shop_textView_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05" />
+
+    <TextView
+        android:id="@+id/display_shop_label_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Country:" />
+
+    <TextView
+        android:id="@+id/display_shop_textView_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05" />
+</LinearLayout>

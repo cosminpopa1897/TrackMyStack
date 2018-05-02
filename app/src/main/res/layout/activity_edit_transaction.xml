@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/Product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Product Name"
+        android:inputType="text|textPersonName" />
+
+    <EditText
+        android:id="@+id/productQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter quantity"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/productReceiver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Receiver"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/productSender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Sender"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/sentDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Date Sent"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/dateReceived"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Date Received"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/transactionSubmitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT TRANSACTION" />
+
+    <Button
+        android:id="@+id/createNewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CREATE NEW PRODUCT" />
+
+</LinearLayout>

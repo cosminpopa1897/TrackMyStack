@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/new_transaction"
+        android:title="New transaction"/>
+    <item android:id="@+id/view_transactions"
+        android:title="Transactions"/>
+
+    <item android:id="@+id/shops"
+        android:title="Shops"/>
+
+    <item android:id="@+id/edit_shops"
+        android:title="Create Shops"/>
+
+    <item android:id="@+id/edit_product"
+        android:title="New Product"/>
+
+    <item android:id="@+id/index_products"
+        android:title="Products"/>
+
+</menu>
