@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import com.trackmystack.popacosmin.trackmystack.Adapters.ShopAdapter;
 import com.trackmystack.popacosmin.trackmystack.Helpers.Constants;
 import com.trackmystack.popacosmin.trackmystack.Helpers.PreferenceFilesRepository;
+import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
 import com.trackmystack.popacosmin.trackmystack.Models.Product;
 import com.trackmystack.popacosmin.trackmystack.Models.Shop;
 import com.trackmystack.popacosmin.trackmystack.Navigation.Navigator;
@@ -32,6 +33,7 @@ public class ShopsActivity extends BaseActivity {
     public ListView ShopListView;
     public ArrayList<Shop> ShopList;
     public PreferenceFilesRepository<ArrayList<Shop>> PreferenceFileRepository;
+    private SqLiteHelper sqLiteHelper;
 
 
     @Override
@@ -74,7 +76,8 @@ public class ShopsActivity extends BaseActivity {
         this.ShopListView = (ListView) findViewById(R.id.shopList);
         this.PreferenceFileRepository = new PreferenceFilesRepository<ArrayList<Shop>>();
         Type objectType =  new TypeToken<ArrayList<Shop>>(){}.getType();
-        this.ShopList = this.PreferenceFileRepository.loadObject(getPreferences(Context.MODE_PRIVATE), Constants.PreferenceFilesKeys.ShopList, objectType);
+        this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
+        this.ShopList = sqLiteHelper.getAllShops();
     }
 
     private Shop getNewShopFromBundle(Intent intent){

@@ -4,6 +4,7 @@ import com.google.gson.reflect.TypeToken;
 import com.trackmystack.popacosmin.trackmystack.Adapters.TransactionAdapter;
 import com.trackmystack.popacosmin.trackmystack.Helpers.Constants;
 import com.trackmystack.popacosmin.trackmystack.Helpers.PreferenceFilesRepository;
+import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
 import com.trackmystack.popacosmin.trackmystack.Models.Product;
 import com.trackmystack.popacosmin.trackmystack.Models.Transaction;
 import com.trackmystack.popacosmin.trackmystack.Navigation.Navigator;
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity {
     public ArrayList<Transaction> TransactionList;
     public HashMap<Integer, Integer> itemIdentityDictionary;
     public PreferenceFilesRepository<ArrayList<Transaction>> PreferenceFileRepository;
+    public SqLiteHelper sqLiteHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,8 +83,10 @@ public class MainActivity extends BaseActivity {
         this.TransactionListView = (ListView) findViewById(R.id.transactionsListView);
         this.PreferenceFileRepository = new PreferenceFilesRepository<ArrayList<Transaction>>();
         Type objectType = new TypeToken<ArrayList<Transaction>>(){}.getType();
-        this.TransactionList = (ArrayList<Transaction>)this.PreferenceFileRepository.loadObject(getPreferences(Context.MODE_PRIVATE), Constants.PreferenceFilesKeys.TransactionList, objectType);
+        this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
+        this.TransactionList = sqLiteHelper.getAllTranasactions();
         this.itemIdentityDictionary = new HashMap<Integer, Integer>();
+
     }
 
 }

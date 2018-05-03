@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.trackmystack.popacosmin.trackmystack.Helpers.BundleHelpers;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * Created by Cosmin on 08-Dec-17.
@@ -16,6 +17,7 @@ public class Shop {
     public String Name;
     public String City;
     public String Country;
+    public ArrayList <StockItem> StockItems;
     public boolean IsDeleted;
 
 

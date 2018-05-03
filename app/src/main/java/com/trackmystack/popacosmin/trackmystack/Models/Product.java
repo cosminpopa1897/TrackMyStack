@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.trackmystack.popacosmin.trackmystack.Helpers.SqlScripts.ProductScripts;
 
+import java.util.ArrayList;
+
 /**
  * Created by Cosmin on 08-Dec-17.
  */

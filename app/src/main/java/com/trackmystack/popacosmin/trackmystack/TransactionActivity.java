@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.trackmystack.popacosmin.trackmystack.Helpers.DateFormatter;
 import com.trackmystack.popacosmin.trackmystack.Helpers.IdentityGenerator;
+import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
 import com.trackmystack.popacosmin.trackmystack.Models.Transaction;
 import com.trackmystack.popacosmin.trackmystack.Navigation.Navigator;
 
@@ -32,6 +33,7 @@ public class TransactionActivity extends BaseActivity {
     public Button CreateProductButton;
     protected Navigator Navigator;
     public Transaction Transaction;
+    private SqLiteHelper sqLiteHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -82,9 +84,10 @@ public class TransactionActivity extends BaseActivity {
 
     protected  void sendNewTransactionToIndex(){
         this.Transaction = getTransactionForm();
-        Bundle newState  = Transaction.BundleTransaction(this.Transaction);
+        sqLiteHelper.insertTransaction(this.Transaction);
+        //Bundle newState  = Transaction.BundleTransaction(this.Transaction);
         Intent intent= new Intent(TransactionActivity.this, MainActivity.class);
-        intent.putExtras(newState);
+        //intent.putExtras(newState);
         startActivity(intent);
     }
 
@@ -112,5 +115,6 @@ public class TransactionActivity extends BaseActivity {
         this.DateReceived = (EditText) findViewById(R.id.dateReceived);
         this.TransactionSubmitButton = (Button) findViewById(R.id.transactionSubmitButton);
         this.CreateProductButton = (Button) findViewById(R.id.createNewProduct);
+        this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
     }
 }

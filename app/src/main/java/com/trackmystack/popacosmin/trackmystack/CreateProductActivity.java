@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.trackmystack.popacosmin.trackmystack.Helpers.IdentityGenerator;
+import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
 import com.trackmystack.popacosmin.trackmystack.Models.Product;
 
 import com.trackmystack.popacosmin.trackmystack.Navigation.Navigator;
@@ -26,6 +27,7 @@ public class CreateProductActivity extends BaseActivity {
     public EditText ProductNameBox;
     public EditText ProductDescriptionBox;
     public EditText ProductPriceBox;
+    private SqLiteHelper sqLiteHelper;
 
     @Override
     public void onCreate(final Bundle savedInstanceState){
@@ -41,6 +43,7 @@ public class CreateProductActivity extends BaseActivity {
 
     private void sendNewProductToIndex(){
         this.Product = this.getProductForm();
+        this.sqLiteHelper.insertProduct(this.Product);
         Bundle newState = Product.BundleProduct(this.Product);
         Intent intent = new Intent(CreateProductActivity.this, ProductIndexActivity.class);
         intent.putExtras(newState);
@@ -71,6 +74,7 @@ public class CreateProductActivity extends BaseActivity {
         this.ProductNameBox = (EditText) findViewById(R.id.editProductName);
         this.ProductDescriptionBox = (EditText) findViewById(R.id.editProductDescription);
         this.ProductPriceBox = (EditText) findViewById(R.id.editProductPrice);
+        this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
     }
 
    @Override

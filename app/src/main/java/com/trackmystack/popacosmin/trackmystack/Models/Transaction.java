@@ -19,13 +19,15 @@ public class Transaction {
     public int Id;
     public String Name;
     public int ProductId;
+    public Product Product;
     public int ReceiverShopId;
+    public Shop ReceiverShop;
     public String Receiver;
     public int SenderShopId;
+    public Shop SenderShop;
     public String Sender;
     public Date DateSent;
     public Date DateReceived;
-    public List<Order> Orders;
     public boolean IsDeleted;
     public float Quantity;
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
 import com.trackmystack.popacosmin.trackmystack.Models.Shop;
 
 /**
@@ -16,6 +17,7 @@ public class DisplayShopActivity extends BaseActivity {
     private TextView shopNameTextView;
     private TextView cityTextView;
     private TextView countryTextView;
+
 
 
     @Override

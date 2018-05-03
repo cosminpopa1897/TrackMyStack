@@ -74,9 +74,9 @@ public class ProductIndexActivity extends BaseActivity {
         this.ProductListView = (ListView) findViewById(R.id.productList);
         this.PreferenceFileRepository = new PreferenceFilesRepository<ArrayList<Product>>();
         Type objectType =  new TypeToken<ArrayList<Product>>(){}.getType();
-        this.ProductList = PreferenceFileRepository.loadObject(getPreferences(Context.MODE_PRIVATE), Constants.PreferenceFilesKeys.ProductList, objectType);
+        this.SqLiteHelper = com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper.getSqLiteHelperInstance(this);
+        this.ProductList = this.SqLiteHelper.getAllProducts();
         this.itemIdentityDictionary = new HashMap<Integer, Integer>();
-        this.SqLiteHelper = new SqLiteHelper(this, Constants.DatabaseKeys.sqlLiteDatabaseName, null, 1);
-        SqLiteHelper.getWritableDatabase();
+
     }
 }
