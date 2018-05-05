@@ -16,4 +16,8 @@ public class Constants {
     public static class DatabaseKeys{
         public final static String sqlLiteDatabaseName = "TrackMyStack";
     }
+
+    public static class BundleKeys{
+        public final static String ShopId = "shopId";
+    }
 }

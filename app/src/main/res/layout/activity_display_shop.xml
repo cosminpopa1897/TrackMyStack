@@ -39,4 +39,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.05" />
+
+    <Button
+        android:id="@+id/display_shop_button_displayStocks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Display Stock Items" />
 </LinearLayout>

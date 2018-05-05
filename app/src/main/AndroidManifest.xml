@@ -24,6 +24,7 @@
         <activity android:name=".DisplayTransactionActivity"/>
         <activity android:name=".DisplayShopActivity"/>
         <activity android:name=".DisplayProductActivity"/>
+        <activity android:name=".DisplayStockItemActivity"/>
     </application>
 
 </manifest>
