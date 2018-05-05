@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -83,6 +84,18 @@ public class TransactionActivity extends BaseActivity {
         });
         ShopSpinnerAdapter shopSpinnerAdapter = new ShopSpinnerAdapter(this, this.shopList, null);
         this.SenderSpinner.setAdapter(shopSpinnerAdapter);
+        this.SenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Transaction.SenderShop = (Shop) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
     }
 
     @Override
@@ -116,8 +129,7 @@ public class TransactionActivity extends BaseActivity {
     private void setDateTextViewValue(TextView dateTextView, int year, int month, int dayOfMonth){
         dateTextView.setText(dayOfMonth + "-" + (month + 1)+ "-" + year);
     }
-    private Transaction getTransactionForm() {
-        Transaction newTransaction = new Transaction();
+    private void getTransactionForm( Transaction newTransaction) {
         newTransaction.Id = IdentityGenerator.getTransactionId();
         newTransaction.Name = this.ProductName.getText().toString();
         newTransaction.DateReceived = DateFormatter.formatDate(this.DateReceivedTextView.getText().toString());
@@ -126,11 +138,10 @@ public class TransactionActivity extends BaseActivity {
         newTransaction.Receiver = this.ProductReceiver.getText().toString();
         newTransaction.Sender = this.ProductSender.getText().toString();
         newTransaction.Quantity = Float.parseFloat(this.ProductQuantity.getText().toString());
-        return newTransaction;
     }
 
     protected  void sendNewTransactionToIndex(){
-        this.Transaction = getTransactionForm();
+        getTransactionForm(this.Transaction);
         sqLiteHelper.insertTransaction(this.Transaction);
         //Bundle newState  = Transaction.BundleTransaction(this.Transaction);
         Intent intent= new Intent(TransactionActivity.this, MainActivity.class);
@@ -165,5 +176,6 @@ public class TransactionActivity extends BaseActivity {
         this.SenderSpinner = (Spinner) findViewById(R.id.edit_transaction_spinner_senderShop);
         this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
         this.shopList = this.sqLiteHelper.getAllShops();
+        this.Transaction = new Transaction();
     }
 }

@@ -23,7 +23,7 @@ public class ShopSpinnerAdapter extends ArrayAdapter<Shop> {
     private View.OnClickListener onClickListener;
 
     public ShopSpinnerAdapter(Context mContext, ArrayList<Shop> shopList, View.OnClickListener onClickListener){
-        super(mContext, R.layout.shop_spinner_item);
+        super(mContext, R.layout.shop_spinner_item, shopList);
         this.shopList = shopList;
         this.mContext = mContext;
         this.onClickListener = onClickListener;
@@ -51,7 +51,7 @@ public class ShopSpinnerAdapter extends ArrayAdapter<Shop> {
         Shop shop = getItem(position);
         if(convertView == null){
             LayoutInflater inflater = LayoutInflater.from(this.mContext);
-            convertView = inflater.inflate(R.layout.shop_spinner_item, parent);
+            convertView = inflater.inflate(R.layout.shop_spinner_item, parent, false);
             shopModel.shopNameTextView = (TextView) convertView.findViewById(R.id.spinner_item_shop_name);
             shopModel.cityTextView = (TextView) convertView.findViewById(R.id.spinner_item_shop_city);
             shopModel.countryTextview = (TextView) convertView.findViewById(R.id.spinner_item_shop_country);
@@ -64,7 +64,6 @@ public class ShopSpinnerAdapter extends ArrayAdapter<Shop> {
         shopModel.shopNameTextView.setText(shop.Name);
         shopModel.cityTextView.setText(shop.City);
         convertView.setTag(shopModel);
-        parent.setOnClickListener(onClickListener);
         return convertView;
     }
 }
