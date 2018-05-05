@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <EditText
         android:id="@+id/Product"
@@ -27,6 +28,12 @@
         android:hint="Enter Receiver"
         android:inputType="textPersonName" />
 
+    <Spinner
+        android:id="@+id/edit_transaction_spinner_senderShop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.08" />
+
     <EditText
         android:id="@+id/productSender"
         android:layout_width="match_parent"
@@ -35,21 +42,33 @@
         android:hint="Enter Sender"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/sentDate"
+    <TextView
+        android:id="@+id/edit_transaction_label_dateSent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Date Sent"
-        android:inputType="date" />
+        android:layout_weight="0.09"
+        android:text="Enter Sent Date" />
 
-    <EditText
-        android:id="@+id/dateReceived"
+    <TextView
+        android:id="@+id/edit_transaction_textView_DateSent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Date Received"
-        android:inputType="date" />
+        android:layout_weight="0.12"
+        android:text="Enter Send Date" />
+
+    <TextView
+        android:id="@+id/edit_transaction_label_receivedDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.14"
+        android:text="Enter Received Date:" />
+
+    <TextView
+        android:id="@+id/edit_transaction_textView_receivedDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.13"
+        android:text="Enter Received Date" />
 
     <Button
         android:id="@+id/transactionSubmitButton"

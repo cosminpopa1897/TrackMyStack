@@ -40,6 +40,8 @@ public class CityAdapter extends ArrayAdapter<City> {
         return getView(position, convertView, parent);
     }
 
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
 
@@ -55,12 +57,13 @@ public class CityAdapter extends ArrayAdapter<City> {
             result = convertView;
         }
         else{
-            cityModel.cityNameTextView = (TextView) convertView.findViewById(product_list_item);
+            cityModel = (CityModel) convertView.getTag();
             result = convertView;
         }
 
         cityModel.cityNameTextView.setText(city.Name);
         cityModel.cityNameTextView.setTag(position);
+        convertView.setTag(cityModel);
         return convertView;
     }
 
