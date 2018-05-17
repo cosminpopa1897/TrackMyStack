@@ -69,6 +69,22 @@ public class TransactionScripts {
     }
 
     public static boolean insertTransaction(SQLiteDatabase db, Transaction transaction){
+        ContentValues contentValues = getTransactionContentValues(transaction);
+        long result = db.insert(tableName, null, contentValues);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    public static boolean updateTranasaction(SQLiteDatabase db, Transaction transaction){
+        ContentValues contentValues = getTransactionContentValues(transaction);
+        long result = db.update(tableName, contentValues, "_id="+transaction.Id, null);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    private static ContentValues getTransactionContentValues( Transaction transaction){
         ContentValues contentValues = new ContentValues();
         contentValues.put(TransactionColumns.nameCol, transaction.Name);
         contentValues.put(TransactionColumns.productIdCol, transaction.ProductId);
@@ -80,12 +96,8 @@ public class TransactionScripts {
         contentValues.put(TransactionColumns.receiverShopIdCol, transaction.ReceiverShopId);
         contentValues.put(TransactionColumns.quantityCol, transaction.Quantity);
         contentValues.put(TransactionColumns.isDeletedCol, transaction.IsDeleted);
-        long result = db.insert(tableName, null, contentValues);
-        if (result == -1)
-            return false;
-        return true;
+        return contentValues;
     }
-
     public static List<Transaction> getAllTransactions(SQLiteDatabase db){
         String selectQuery = "SELECT * FROM " + tableName;
         List<Transaction> transactionList =new ArrayList<Transaction>();

@@ -53,15 +53,28 @@ public class StockItemScripts {
     }
 
     public static boolean insertProduct(SQLiteDatabase db, StockItem stockItem){
+        ContentValues contentValues = getStockItemContentValues(stockItem);
+        long result = db.insert(tableName, null, contentValues);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    public static boolean updateProduct(SQLiteDatabase db, StockItem stockItem){
+        ContentValues contentValues = getStockItemContentValues(stockItem);
+        long result = db.update(tableName, contentValues, "_id="+stockItem.Id, null);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    private static ContentValues getStockItemContentValues(StockItem stockItem){
         ContentValues contentValues = new ContentValues();
         contentValues.put(StockItemColumns.productIdCol, stockItem.ProductId);
         contentValues.put(StockItemColumns.shopIdCol, stockItem.ShopId);
         contentValues.put(StockItemColumns.quantityCol, stockItem.Quantity);
         contentValues.put(StockItemColumns.isDeletedCol, stockItem.IsDeleted);
-        long result = db.insert(tableName, null, contentValues);
-        if (result == -1)
-            return false;
-        return true;
+        return contentValues;
     }
 
     public static List<StockItem> getAllStockItems(SQLiteDatabase db){

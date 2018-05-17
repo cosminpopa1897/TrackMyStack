@@ -61,7 +61,13 @@ public class SqLiteHelper extends SQLiteOpenHelper {
         boolean result =ProductScripts.insertProduct(db, product);
         db.close();
         return result;
+    }
 
+    public boolean updateProduct(Product product){
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = ProductScripts.updateProduct(db, product);
+        db.close();
+        return result;
     }
 
     public ArrayList<Product> getAllProducts(){
@@ -108,6 +114,13 @@ public class SqLiteHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public boolean updateShop(Shop shop){
+        SQLiteDatabase db = getWritableDatabase();
+        boolean result = ShopScripts.updateShop(db, shop);
+        db.close();
+        return result;
+    }
+
     public ArrayList<Shop> getAllShops(){
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Shop> shopList =(ArrayList<Shop>) ShopScripts.getAllShops(db);
@@ -131,6 +144,13 @@ public class SqLiteHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public boolean updateTransaction(Transaction transaction){
+        SQLiteDatabase db = getWritableDatabase();
+        boolean result = TransactionScripts.updateTranasaction(db, transaction);
+        db.close();
+        return result;
+    }
+
     public ArrayList<Transaction> getAllTranasactions(){
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Transaction> transactionList = (ArrayList<Transaction>) TransactionScripts.getAllTransactions(db);
@@ -150,6 +170,13 @@ public class SqLiteHelper extends SQLiteOpenHelper {
     public boolean insertStockItem(StockItem stockItem){
         SQLiteDatabase db = getWritableDatabase();
         boolean result = StockItemScripts.insertProduct(db, stockItem);
+        db.close();
+        return result;
+    }
+
+    public boolean updateStockItem(StockItem stockItem){
+        SQLiteDatabase db = getWritableDatabase();
+        boolean result = StockItemScripts.updateProduct(db, stockItem);
         db.close();
         return result;
     }

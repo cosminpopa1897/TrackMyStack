@@ -53,15 +53,28 @@ public class ProductScripts {
 
 
     public static boolean insertProduct(SQLiteDatabase db, Product product){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductColumns.nameCol, product.Name);
-        contentValues.put(ProductColumns.descriptionCol, product.Description);
-        contentValues.put(ProductColumns.priceCol, product.Price);
-        contentValues.put(ProductColumns.isDeletedColumn, product.IsDeleted);
+        ContentValues contentValues = getProductContentValues(product);
         long result = db.insert(productTable, null, contentValues);
         if (result == -1)
             return false;
         return true;
+    }
+
+    public static boolean updateProduct(SQLiteDatabase db, Product product){
+        ContentValues contentValues = getProductContentValues(product);
+        long result = db.update(productTable, contentValues, "_id="+product.Id, null);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    private static ContentValues getProductContentValues(Product product){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProductColumns.nameCol, product.Name);
+        contentValues.put(ProductColumns.descriptionCol, product.Description);
+        contentValues.put(ProductColumns.priceCol, product.Price);
+        contentValues.put(ProductColumns.descriptionCol, product.Description);
+        return contentValues;
     }
 
     public static List<Product> getAllProducts(SQLiteDatabase db){

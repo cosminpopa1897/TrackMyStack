@@ -53,15 +53,29 @@ public class ShopScripts  {
     }
 
     public static boolean insertShop(SQLiteDatabase db, Shop shop){
+        ContentValues contentValues = getShopContentValues(shop);
+        long result = db.insert(tableName, null, contentValues);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    public static boolean updateShop(SQLiteDatabase db, Shop shop){
+        ContentValues contentValues = getShopContentValues(shop);
+        long result = db.update(tableName, contentValues, "_id="+shop.Id, null);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+
+    private static ContentValues getShopContentValues(Shop shop){
         ContentValues contentValues = new ContentValues();
         contentValues.put(ShopColumns.nameCol, shop.Name);
         contentValues.put(ShopColumns.cityCol, shop.City);
         contentValues.put(ShopColumns.countryCol, shop.Country);
         contentValues.put(ShopColumns.isDeletedCol, shop.IsDeleted);
-        long result = db.insert(tableName, null, contentValues);
-        if (result == -1)
-            return false;
-        return true;
+        return contentValues;
     }
 
     public static List<Shop> getAllShops(SQLiteDatabase db){

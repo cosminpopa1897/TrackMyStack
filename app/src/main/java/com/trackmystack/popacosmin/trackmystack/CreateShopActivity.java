@@ -102,17 +102,7 @@ public class CreateShopActivity extends BaseActivity {
         newShop.Name = this.ShopNameEdit.getText().toString();
     }
 
-    private ArrayList<Country> generCountries(){
-        ArrayList<Country> countryArrayList = new ArrayList<Country>();
-        for(int i = 0; i < 30; i++){
-            Country country = new Country();
-            country.setId(i);
-            country.setName("Romania");
-            countryArrayList.add(country);
-        }
-        return countryArrayList;
-    }
-    private ArrayList<City> generateCityList(){
+     private ArrayList<City> generateCityList(){
         ArrayList<City> cityArrayList = new ArrayList<City>();
         for(int i = 0; i < 30; i++){
             City city = new City();
