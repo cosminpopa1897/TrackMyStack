@@ -45,6 +45,7 @@ public class TransactionActivity extends BaseActivity {
     public Button TransactionSubmitButton;
     public Button CreateProductButton;
     private Spinner SenderSpinner;
+    private Spinner ReceiverSpinner;
     protected Navigator Navigator;
     public Transaction Transaction;
     private SqLiteHelper sqLiteHelper;
@@ -82,12 +83,13 @@ public class TransactionActivity extends BaseActivity {
                 ShowDatePickerDialog(v, DateReceivedTextView);
             }
         });
-        ShopSpinnerAdapter shopSpinnerAdapter = new ShopSpinnerAdapter(this, this.shopList, null);
-        this.SenderSpinner.setAdapter(shopSpinnerAdapter);
+        ShopSpinnerAdapter senderShopSpinnerAdapter = new ShopSpinnerAdapter(this, this.shopList, null);
+        this.SenderSpinner.setAdapter(senderShopSpinnerAdapter);
         this.SenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Transaction.SenderShop = (Shop) parent.getItemAtPosition(position);
+                Transaction.SenderShopId = Transaction.SenderShop.Id;
             }
 
             @Override
@@ -96,6 +98,22 @@ public class TransactionActivity extends BaseActivity {
             }
 
         });
+
+        ShopSpinnerAdapter receiverShopSpinnerAdapter = new ShopSpinnerAdapter(this, this.shopList, null);
+        this.ReceiverSpinner.setAdapter(receiverShopSpinnerAdapter);
+        this.ReceiverSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Transaction.ReceiverShop = (Shop) parent.getItemAtPosition(position);
+                Transaction.ReceiverShopId = Transaction.ReceiverShop.Id;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
     @Override
@@ -174,6 +192,7 @@ public class TransactionActivity extends BaseActivity {
         this.TransactionSubmitButton = (Button) findViewById(R.id.transactionSubmitButton);
         this.CreateProductButton = (Button) findViewById(R.id.createNewProduct);
         this.SenderSpinner = (Spinner) findViewById(R.id.edit_transaction_spinner_senderShop);
+        this.ReceiverSpinner = (Spinner) findViewById(R.id.edit_transaction_spinner_receiverShop);
         this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
         this.shopList = this.sqLiteHelper.getAllShops();
         this.Transaction = new Transaction();

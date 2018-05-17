@@ -1,6 +1,7 @@
 package com.trackmystack.popacosmin.trackmystack.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,16 +32,39 @@ public class CityAdapter extends ArrayAdapter<City> {
     public CityAdapter(Context context, ArrayList<City> cityList){
         super(context, R.layout.product_listview, cityList);
         this.cityList = cityList;
+        City placeHolderCity = new City();
+        placeHolderCity.setName("Select a city");
+        placeHolderCity.setId(0);
+        this.cityList.add(0, placeHolderCity);
         this.mContext = context;
     }
 
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-        return getView(position, convertView, parent);
+       View view = getView(position, convertView, parent);
+        try{        CityModel cityModel =(CityModel) view.getTag();
+        if (position == 0) {
+            // Set the hint text color gray
+            cityModel.cityNameTextView.setTextColor(Color.GRAY);
+        }
+        } catch (Exception e){
+
+        }
+
+        return view;
     }
 
-
+    @Override
+    public boolean isEnabled(int position) {
+        if (position == 0) {
+            // Disable the first item from Spinner
+            // First item will be use for hint
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
@@ -61,7 +85,7 @@ public class CityAdapter extends ArrayAdapter<City> {
             result = convertView;
         }
 
-        cityModel.cityNameTextView.setText(city.Name);
+        cityModel.cityNameTextView.setText(city.getName());
         cityModel.cityNameTextView.setTag(position);
         convertView.setTag(cityModel);
         return convertView;

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:fillViewport="false">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,10 +35,9 @@
         android:inputType="textPersonName" />
 
     <Spinner
-        android:id="@+id/edit_transaction_spinner_senderShop"
+        android:id="@+id/edit_transaction_spinner_receiverShop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.08" />
+        android:layout_height="41dp" />
 
     <EditText
         android:id="@+id/productSender"
@@ -42,33 +47,56 @@
         android:hint="Enter Sender"
         android:inputType="textPersonName" />
 
+    <Spinner
+        android:id="@+id/edit_transaction_spinner_senderShop"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
     <TextView
         android:id="@+id/edit_transaction_label_dateSent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.09"
+        android:layout_height="32dp"
         android:text="Enter Sent Date" />
 
     <TextView
         android:id="@+id/edit_transaction_textView_DateSent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.12"
+        android:layout_height="32dp"
         android:text="Enter Send Date" />
 
     <TextView
         android:id="@+id/edit_transaction_label_receivedDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.14"
+        android:layout_height="32dp"
         android:text="Enter Received Date:" />
 
     <TextView
         android:id="@+id/edit_transaction_textView_receivedDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.13"
+        android:layout_height="34dp"
         android:text="Enter Received Date" />
+
+    <TextView
+        android:id="@+id/edit_transaction_textView_product"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:text="Select a product" />
+
+    <Spinner
+        android:id="@+id/edit_transaction_spinner_product"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:id="@+id/edit_transaction_textView_productQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter produc quantity:"/>
+    <EditText
+        android:id="@+id/edit_transaction_ediText_productQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"/>
 
     <Button
         android:id="@+id/transactionSubmitButton"
@@ -83,3 +111,4 @@
         android:text="CREATE NEW PRODUCT" />
 
 </LinearLayout>
+</ScrollView>

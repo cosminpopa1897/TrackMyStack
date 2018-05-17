@@ -13,25 +13,11 @@
         android:hint="Enter Shop Name"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/EditShopCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter City"
-        android:inputType="textPersonName"/>
-
-    <EditText
-        android:id="@+id/EditShopCountry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
     <Spinner
         android:id="@+id/edit_shop_spinner_city"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04" />
 
     <Spinner
         android:id="@+id/edit_shop_spinner_Country"

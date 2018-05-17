@@ -81,11 +81,11 @@ public class SqLiteHelper extends SQLiteOpenHelper {
     public boolean updateProduct(int id, Product product){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("Name", product.Name);
+        contentValues.put("name", product.Name);
         contentValues.put("Description", product.Description);
         contentValues.put("Price", product.Price);
         contentValues.put("IsDeleted", product.IsDeleted);
-        long result = db.update("Product", contentValues, "Id = ?", new String[] {Integer.toString(id)});
+        long result = db.update("Product", contentValues, "id = ?", new String[] {Integer.toString(id)});
         if (result == -1)
             return false;
         return true;
@@ -93,7 +93,7 @@ public class SqLiteHelper extends SQLiteOpenHelper {
 
     public Integer deleteProduct(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete("Product", "Id = ?", new String[] {Integer.toString((id))});
+        return db.delete("Product", "id = ?", new String[] {Integer.toString((id))});
 
     }
 

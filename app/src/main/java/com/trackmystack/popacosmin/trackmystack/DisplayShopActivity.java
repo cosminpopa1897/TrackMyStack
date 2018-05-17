@@ -29,6 +29,16 @@ public class DisplayShopActivity extends BaseActivity {
         setContentView(R.layout.activity_display_shop);
         intializeAttributes();
         mapShopToDisplay();
+        this.displayStocksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DisplayShopActivity.this, DisplayStockItemActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constants.BundleKeys.ShopId, shop.Id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public void setCurrentMenuButtonId() {

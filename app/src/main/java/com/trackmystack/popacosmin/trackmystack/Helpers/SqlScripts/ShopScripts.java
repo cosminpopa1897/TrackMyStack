@@ -17,8 +17,8 @@ import java.util.List;
 public class ShopScripts  {
 
     public class ShopColumns{
-        public final static String idCol = "Id";
-        public final static String nameCol = "Name";
+        public final static String idCol = "id";
+        public final static String nameCol = "name";
         public final static String cityCol = "City";
         public final static String countryCol = "Country";
         public final static String isDeletedCol = "IsDeleted";

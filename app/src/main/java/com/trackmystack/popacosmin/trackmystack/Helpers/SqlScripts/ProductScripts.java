@@ -16,8 +16,8 @@ import java.util.List;
 public class ProductScripts {
 
       static class ProductColumns {
-        public static final String idCol = "Id";
-        public static final String nameCol = "Name";
+        public static final String idCol = "id";
+        public static final String nameCol = "name";
         public static final String descriptionCol = "Description";
         public static final String priceCol = "Price";
         public static final String isDeletedColumn = "IsDeleted";

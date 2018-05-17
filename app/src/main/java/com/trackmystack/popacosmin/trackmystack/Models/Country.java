@@ -5,11 +5,23 @@ package com.trackmystack.popacosmin.trackmystack.Models;
  */
 
 public class Country implements DropdownElement{
-    public int Id;
-    public String Name;
+    private int id;
+    private String name;
 
     @Override
     public String getName() {
-        return Name;
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

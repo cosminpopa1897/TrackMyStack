@@ -18,8 +18,8 @@ import java.util.List;
 public class TransactionScripts {
 
     public static class TransactionColumns{
-        public static final String idCol = "Id";
-        public static final String nameCol = "Name";
+        public static final String idCol = "id";
+        public static final String nameCol = "name";
         public static final String productIdCol = "ProductId";
         public static final String senderShopIdCol = "SenderShopId";
         public static final String receiverShopIdCol = "ReceiverShopId";

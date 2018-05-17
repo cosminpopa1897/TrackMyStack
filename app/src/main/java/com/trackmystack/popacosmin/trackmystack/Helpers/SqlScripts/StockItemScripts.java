@@ -18,7 +18,7 @@ public class StockItemScripts {
     public final static String tableName = "StockItem";
 
     public static class StockItemColumns {
-        public static  final String idCol = "Id";
+        public static  final String idCol = "id";
         public static final String productIdCol = "ProductId";
         public static final String shopIdCol = "ShopId";
         public static final String quantityCol = "Quantity";
