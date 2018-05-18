@@ -62,7 +62,14 @@ public class ProductScripts {
 
     public static boolean updateProduct(SQLiteDatabase db, Product product){
         ContentValues contentValues = getProductContentValues(product);
-        long result = db.update(productTable, contentValues, "_id="+product.Id, null);
+        long result = db.update(productTable, contentValues, ProductColumns.idCol+"="+product.Id, null);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    public static  boolean deleteProduct(SQLiteDatabase db, Product product){
+        long result = db.delete(productTable, ProductColumns.idCol + "=" + product.Id, null);
         if (result == -1)
             return false;
         return true;

@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.trackmystack.popacosmin.trackmystack.Helpers.BundleHelpers;
+import com.trackmystack.popacosmin.trackmystack.Helpers.Constants;
 import com.trackmystack.popacosmin.trackmystack.Helpers.IdentityGenerator;
 import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
 import com.trackmystack.popacosmin.trackmystack.Models.Product;
@@ -28,11 +30,25 @@ public class CreateProductActivity extends BaseActivity {
     public EditText ProductDescriptionBox;
     public EditText ProductPriceBox;
     private SqLiteHelper sqLiteHelper;
+    private boolean isEdit = false;
 
     @Override
     public void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.initializeAttributes();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle !=null){
+        if(bundle.containsKey(Constants.BundleKeys.ProductKey)){
+            this.Product = BundleHelpers.UnPack(bundle, Constants.BundleKeys.ProductKey, this.Product.getClass());
+            initializeFormValues();
+            this.isEdit = true;
+        }
+        }
+
+        if(this.isEdit){
+
+        }
         this.SaveProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,10 +59,12 @@ public class CreateProductActivity extends BaseActivity {
 
     private void sendNewProductToIndex(){
         this.Product = this.getProductForm();
-        this.sqLiteHelper.insertProduct(this.Product);
-        Bundle newState = Product.BundleProduct(this.Product);
+        if(isEdit){
+            this.sqLiteHelper.updateProduct(this.Product);
+        }
+        else
+            this.sqLiteHelper.insertProduct(this.Product);
         Intent intent = new Intent(CreateProductActivity.this, ProductIndexActivity.class);
-        intent.putExtras(newState);
         startActivity(intent);
     }
 
@@ -75,7 +93,16 @@ public class CreateProductActivity extends BaseActivity {
         this.ProductDescriptionBox = (EditText) findViewById(R.id.editProductDescription);
         this.ProductPriceBox = (EditText) findViewById(R.id.editProductPrice);
         this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
+        this.Product = new Product();
     }
+
+    private void initializeFormValues(){
+        this.ProductNameBox.setText(this.Product.Name);
+        this.ProductDescriptionBox.setText(this.Product.Description);
+        this.ProductPriceBox.setText(Float.toString(this.Product.Price));
+    }
+
+
 
    @Override
    public void setCurrentMenuButtonId(){

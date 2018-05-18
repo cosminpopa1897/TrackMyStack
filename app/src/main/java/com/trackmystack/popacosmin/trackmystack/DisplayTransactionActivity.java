@@ -2,8 +2,13 @@ package com.trackmystack.popacosmin.trackmystack;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.trackmystack.popacosmin.trackmystack.Helpers.BundleHelpers;
+import com.trackmystack.popacosmin.trackmystack.Helpers.Constants;
+import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
 import com.trackmystack.popacosmin.trackmystack.Models.Shop;
 import com.trackmystack.popacosmin.trackmystack.Models.Transaction;
 
@@ -22,6 +27,9 @@ public class DisplayTransactionActivity extends BaseActivity {
     private TextView dateSentTextView;
     private TextView dateReceivedTextView;
     private TextView quantityTextView;
+    private Button editTransactionButton;
+    private Button deleteTransactionButton;
+    private SqLiteHelper sqLiteHelper;
 
     @Override
     public void onCreate(Bundle SavedInstanceState){
@@ -29,6 +37,23 @@ public class DisplayTransactionActivity extends BaseActivity {
         setContentView(R.layout.activity_display_transaction);
         initializeAttributes();
         mapTransactionToDisplay(transaction);
+        this.editTransactionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = BundleHelpers.Pack(transaction, transaction.getClass(), Constants.BundleKeys.TransactionKey);
+                Intent intent = new Intent(DisplayTransactionActivity.this, TransactionActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        this.deleteTransactionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sqLiteHelper.deleteTransaction(transaction);
+                Intent intent = new Intent(DisplayTransactionActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -43,6 +68,9 @@ public class DisplayTransactionActivity extends BaseActivity {
         this.dateReceivedTextView = (TextView) findViewById(R.id.display_transaction_textView_DateReceived);
         this.dateSentTextView = (TextView) findViewById(R.id.display_transaction_textView_DateSent);
         this.quantityTextView = (TextView) findViewById(R.id.display_transaction_textView_quantity);
+        this.editTransactionButton = (Button) findViewById(R.id.display_transaction_button_editTransaction);
+        this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
+        this.deleteTransactionButton = (Button) findViewById(R.id.display_transaction_button_deleteTransaction);
         Intent intent = getIntent();
         this.transaction = getTransactionFromIntent(intent);
     }

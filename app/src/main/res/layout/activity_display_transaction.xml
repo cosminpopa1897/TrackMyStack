@@ -80,4 +80,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.07" />
+
+    <Button
+        android:id="@+id/display_transaction_button_editTransaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Transaction" />
+
+    <Button
+        android:id="@+id/display_transaction_button_deleteTransaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Transaction" />
 </LinearLayout>

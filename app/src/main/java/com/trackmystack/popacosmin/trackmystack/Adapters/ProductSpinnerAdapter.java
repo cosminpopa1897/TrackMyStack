@@ -20,18 +20,27 @@ public class ProductSpinnerAdapter extends ArrayAdapter<Product> {
 
     private ArrayList<Product> productList;
     private Context mContext;
-    private View.OnClickListener onClickListener;
 
-    public ProductSpinnerAdapter(Context context, ArrayList<Product> productList, View.OnClickListener onClickListener) {
+
+    public ProductSpinnerAdapter(Context context, ArrayList<Product> productList) {
         super(context, R.layout.product_spinner_item, productList);
         this.productList = productList;
         this.mContext = context;
-        this.onClickListener = onClickListener;
     }
 
+    @Override
+    public int getCount() {
+        return this.productList.size();
+    }
     private static class ProductSpinnerModel{
         TextView productNameTextView;
         TextView priceTextView;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView,
+                                ViewGroup parent) {
+        return getView(position, convertView, parent);
     }
 
     @Override
@@ -42,7 +51,7 @@ public class ProductSpinnerAdapter extends ArrayAdapter<Product> {
         if(convertView == null){
             productSpinnerModel = new ProductSpinnerModel();
             LayoutInflater inflater = LayoutInflater.from(this.mContext);
-            convertView = inflater.inflate(R.layout.shop_spinner_item, parent);
+            convertView = inflater.inflate(R.layout.product_spinner_item, parent, false);
             productSpinnerModel.productNameTextView = (TextView) convertView.findViewById(R.id.spinner_item_product_name);
             productSpinnerModel.priceTextView = (TextView) convertView.findViewById(R.id.spinner_item_product_price);
         }
@@ -53,7 +62,7 @@ public class ProductSpinnerAdapter extends ArrayAdapter<Product> {
         productSpinnerModel.productNameTextView.setText(product.Name);
         productSpinnerModel.priceTextView.setText(Float.toString(product.Price));
         convertView.setTag(productSpinnerModel);
-        convertView.setOnClickListener(this.onClickListener);
+
 
         return convertView;
     }

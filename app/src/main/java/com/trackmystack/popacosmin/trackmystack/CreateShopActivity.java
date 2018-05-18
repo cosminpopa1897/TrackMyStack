@@ -10,6 +10,8 @@ import android.widget.Spinner;
 
 import com.trackmystack.popacosmin.trackmystack.Adapters.CityAdapter;
 import com.trackmystack.popacosmin.trackmystack.Adapters.CountryAdapter;
+import com.trackmystack.popacosmin.trackmystack.Helpers.BundleHelpers;
+import com.trackmystack.popacosmin.trackmystack.Helpers.Constants;
 import com.trackmystack.popacosmin.trackmystack.Helpers.FirebaseHelper;
 import com.trackmystack.popacosmin.trackmystack.Helpers.IdentityGenerator;
 import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
@@ -33,6 +35,8 @@ public class CreateShopActivity extends BaseActivity {
     private ArrayList<City> cityList;
     private ArrayList<Country> countryList;
     private FirebaseHelper firebaseHelper;
+    private boolean isEdit = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -55,9 +59,9 @@ public class CreateShopActivity extends BaseActivity {
                     return ;
                 }
                 shop.Country = county.getName();
-                ArrayList<City> cities = firebaseHelper.cityRepository.getCitiesByCountyId(county.getId());
+                cityList = firebaseHelper.cityRepository.getCitiesByCountyId(county.getId());
 
-                CityAdapter cityAdapter = new CityAdapter(parent.getContext(), cities);
+                CityAdapter cityAdapter = new CityAdapter(parent.getContext(), cityList);
                 citySpinner.setAdapter(cityAdapter);
                 citySpinner.setPrompt("Select a city");
                 citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -79,6 +83,16 @@ public class CreateShopActivity extends BaseActivity {
 
             }
         });
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null){
+            if (bundle.containsKey(Constants.BundleKeys.ShopKey)){
+                this.shop = BundleHelpers.UnPack(bundle, Constants.BundleKeys.ShopKey, this.shop.getClass());
+                this.isEdit = true;
+                initializeForm();
+            }
+        }
     }
 
     @Override
@@ -98,7 +112,6 @@ public class CreateShopActivity extends BaseActivity {
         this.countryList = this.firebaseHelper.countyRepository.getCounties();
     }
     private void getShopForm(Shop newShop) {
-        newShop.Id = IdentityGenerator.getProductId();
         newShop.Name = this.ShopNameEdit.getText().toString();
     }
 
@@ -115,9 +128,38 @@ public class CreateShopActivity extends BaseActivity {
 
     private void SendNewShopToIndex(){
         getShopForm(this.shop);
-        this.sqLiteHelper.insertShop(this.shop);
+        if(this.isEdit){
+            this.sqLiteHelper.updateShop(this.shop);
+        }
+        else
+            this.sqLiteHelper.insertShop(this.shop);
         Intent intent = new Intent(CreateShopActivity.this, ShopsActivity.class);
         startActivity(intent);
+    }
+
+    private void initializeForm(){
+        this.ShopNameEdit.setText(this.shop.Name);
+     //   int countyPosition = getCountyPostion(this.shop.Country);
+     //   this.countrySpinner.setSelection(countyPosition);
+     //   int cityPosition = getCityPosition(this.shop.City);
+     //   this.citySpinner.setSelection(cityPosition);
+    }
+
+
+    private int getCountyPostion(String name){
+        for(int i = 0; i< countryList.size(); i++){
+            if (countryList.get(i).getName() == name)
+                return i;
+        }
+        return -1;
+    }
+
+    private int getCityPosition(String name){
+        for(int i = 0; i< cityList.size(); i++){
+            if (cityList.get(i).getName() == name)
+                return i;
+        }
+        return -1;
     }
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
@@ -42,4 +43,17 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:layout_weight="0.04" />
+
+    <Button
+        android:id="@+id/display_product_button_editProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Product" />
+
+    <Button
+        android:id="@+id/display_product_button_deleteShop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Product"
+        tools:text="Delete Product" />
 </LinearLayout>

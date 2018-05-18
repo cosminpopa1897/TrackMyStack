@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.trackmystack.popacosmin.trackmystack.Helpers.BundleHelpers;
 import com.trackmystack.popacosmin.trackmystack.Helpers.Constants;
 import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
 import com.trackmystack.popacosmin.trackmystack.Models.Shop;
@@ -21,6 +22,9 @@ public class DisplayShopActivity extends BaseActivity {
     private TextView cityTextView;
     private TextView countryTextView;
     private Button displayStocksButton;
+    private Button editShopButton;
+    private Button deleteShop;
+    private SqLiteHelper sqLiteHelper;
 
 
     @Override
@@ -39,6 +43,15 @@ public class DisplayShopActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        this.deleteShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sqLiteHelper.deleteShop(shop);
+                Intent intent = new Intent(DisplayShopActivity.this, ShopsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public void setCurrentMenuButtonId() {
@@ -50,15 +63,21 @@ public class DisplayShopActivity extends BaseActivity {
         this.cityTextView = (TextView) findViewById(R.id.display_shop_textView_city);
         this.countryTextView = (TextView) findViewById(R.id.display_shop_textView_country);
         this.displayStocksButton = (Button) findViewById(R.id.display_shop_button_displayStocks);
-        this.displayStocksButton.setOnClickListener(new View.OnClickListener(){
+        this.editShopButton = (Button) findViewById(R.id.display_shop_button_editShop);
+        this.editShopButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                Bundle bundle = BundleHelpers.Pack(shop, shop.getClass(), Constants.BundleKeys.ShopKey);
+                Intent intent = new Intent(DisplayShopActivity.this, CreateShopActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         this.shop = Shop.unBundleShop(bundle);
+        this.deleteShop = (Button) findViewById(R.id.display_shop_button_deleteShop);
+        this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
     }
 
     private void mapShopToDisplay(){

@@ -78,7 +78,14 @@ public class TransactionScripts {
 
     public static boolean updateTranasaction(SQLiteDatabase db, Transaction transaction){
         ContentValues contentValues = getTransactionContentValues(transaction);
-        long result = db.update(tableName, contentValues, "_id="+transaction.Id, null);
+        long result = db.update(tableName, contentValues, TransactionColumns.idCol + "="+transaction.Id, null);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    public static boolean deleteTransaction(SQLiteDatabase db, Transaction transaction){
+        long result = db.delete(tableName, TransactionColumns.idCol + "=" + transaction.Id, null);
         if (result == -1)
             return false;
         return true;

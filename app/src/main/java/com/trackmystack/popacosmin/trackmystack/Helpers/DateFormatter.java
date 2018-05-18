@@ -17,4 +17,11 @@ public class DateFormatter {
         return calendar.getTime();
     }
 
+    public static String toStringDate(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String result = calendar.get(Calendar.DAY_OF_MONTH) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR);
+        return  result;
+    }
+
 }

@@ -1,8 +1,9 @@
-- Editare entitati
+
+
 - Raport in activitati si in fisiere
 - Raport Firebase
-- Butoane selectare stergere
-- Efect tranzactii
+- Aranjare Tranzactii +-
+- Efect tranzactii( + Adaugare stocuri) +-
 
 
 DONE:
@@ -11,3 +12,5 @@ DONE:
 -Datepickere
 -Spinnere pentru orase si tari
 -Baze de date Firebase
+- Editare entitati
+- Butoane selectare stergere

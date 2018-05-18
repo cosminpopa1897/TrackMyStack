@@ -19,5 +19,9 @@ public class Constants {
 
     public static class BundleKeys{
         public final static String ShopId = "shopId";
+        public final static String ShopKey = "shop";
+        public final static String TransactionKey = "transaction";
+        public final static String ProductKey = "product";
+        public final static String StockItemKey = "stockItem";
     }
 }

@@ -62,7 +62,14 @@ public class ShopScripts  {
 
     public static boolean updateShop(SQLiteDatabase db, Shop shop){
         ContentValues contentValues = getShopContentValues(shop);
-        long result = db.update(tableName, contentValues, "_id="+shop.Id, null);
+        long result = db.update(tableName, contentValues, ShopColumns.idCol + "="+shop.Id, null);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    public static boolean deleteShop(SQLiteDatabase db, Shop shop){
+        long result = db.delete(tableName, ShopColumns.idCol + "=" + shop.Id, null);
         if (result == -1)
             return false;
         return true;

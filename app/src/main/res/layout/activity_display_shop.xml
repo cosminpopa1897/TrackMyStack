@@ -45,4 +45,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Display Stock Items" />
+
+    <Button
+        android:id="@+id/display_shop_button_editShop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Shop" />
+
+    <Button
+        android:id="@+id/display_shop_button_deleteShop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Shop" />
 </LinearLayout>

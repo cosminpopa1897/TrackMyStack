@@ -68,6 +68,7 @@ public class CountryAdapter extends ArrayAdapter<Country> {
         }
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
 

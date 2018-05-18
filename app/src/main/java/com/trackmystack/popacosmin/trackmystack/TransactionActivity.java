@@ -17,11 +17,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.trackmystack.popacosmin.trackmystack.Adapters.ProductAdapter;
+import com.trackmystack.popacosmin.trackmystack.Adapters.ProductSpinnerAdapter;
 import com.trackmystack.popacosmin.trackmystack.Adapters.ShopSpinnerAdapter;
 import com.trackmystack.popacosmin.trackmystack.Fragments.DatePickerFragment;
+import com.trackmystack.popacosmin.trackmystack.Helpers.BundleHelpers;
+import com.trackmystack.popacosmin.trackmystack.Helpers.Constants;
 import com.trackmystack.popacosmin.trackmystack.Helpers.DateFormatter;
 import com.trackmystack.popacosmin.trackmystack.Helpers.IdentityGenerator;
 import com.trackmystack.popacosmin.trackmystack.Helpers.SqLiteHelper;
+import com.trackmystack.popacosmin.trackmystack.Models.Product;
 import com.trackmystack.popacosmin.trackmystack.Models.Shop;
 import com.trackmystack.popacosmin.trackmystack.Models.Transaction;
 import com.trackmystack.popacosmin.trackmystack.Navigation.Navigator;
@@ -38,18 +43,20 @@ public class TransactionActivity extends BaseActivity {
 
     public EditText ProductName;
     public EditText ProductQuantity;
-    public EditText ProductReceiver;
-    public EditText ProductSender;
     private TextView DateSentTextView;
     private TextView DateReceivedTextView;
     public Button TransactionSubmitButton;
     public Button CreateProductButton;
     private Spinner SenderSpinner;
     private Spinner ReceiverSpinner;
+    private Spinner ProductSpinner;
     protected Navigator Navigator;
+    private Product Product;
     public Transaction Transaction;
     private SqLiteHelper sqLiteHelper;
     private ArrayList<Shop> shopList;
+    private ArrayList<Product> productList;
+    private boolean isEdit = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -114,6 +121,31 @@ public class TransactionActivity extends BaseActivity {
             }
         });
 
+        ProductSpinnerAdapter productSpinnerAdapter = new ProductSpinnerAdapter(this, this.productList);
+        this.ProductSpinner.setAdapter(productSpinnerAdapter);
+        this.ProductSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               Product =(Product) parent.getSelectedItem();
+                Transaction.ProductId = Product.Id;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(Constants.BundleKeys.TransactionKey)){
+            Bundle bundle = intent.getExtras();
+            this.Transaction = BundleHelpers.UnPack(bundle, Constants.BundleKeys.TransactionKey, this.Transaction.getClass());
+            this.isEdit = true;
+            initializeForm();
+
+        }
+
     }
 
     @Override
@@ -148,19 +180,23 @@ public class TransactionActivity extends BaseActivity {
         dateTextView.setText(dayOfMonth + "-" + (month + 1)+ "-" + year);
     }
     private void getTransactionForm( Transaction newTransaction) {
-        newTransaction.Id = IdentityGenerator.getTransactionId();
         newTransaction.Name = this.ProductName.getText().toString();
         newTransaction.DateReceived = DateFormatter.formatDate(this.DateReceivedTextView.getText().toString());
+        Shop receiver = (Shop) this.ReceiverSpinner.getSelectedItem();
+        newTransaction.ReceiverShopId = receiver.Id;
+        Shop sender = (Shop) this.SenderSpinner.getSelectedItem();
+        newTransaction.SenderShopId = sender.Id;
         newTransaction.DateSent = DateFormatter.formatDate(this.DateSentTextView.getText().toString());
         newTransaction.IsDeleted = false;
-        newTransaction.Receiver = this.ProductReceiver.getText().toString();
-        newTransaction.Sender = this.ProductSender.getText().toString();
         newTransaction.Quantity = Float.parseFloat(this.ProductQuantity.getText().toString());
     }
 
     protected  void sendNewTransactionToIndex(){
         getTransactionForm(this.Transaction);
-        sqLiteHelper.insertTransaction(this.Transaction);
+        if(isEdit)
+            sqLiteHelper.updateTransaction(this.Transaction);
+        else
+            sqLiteHelper.insertTransaction(this.Transaction);
         //Bundle newState  = Transaction.BundleTransaction(this.Transaction);
         Intent intent= new Intent(TransactionActivity.this, MainActivity.class);
         //intent.putExtras(newState);
@@ -185,8 +221,6 @@ public class TransactionActivity extends BaseActivity {
         setContentView(R.layout.activity_edit_transaction);
         this.ProductName = (EditText) findViewById(R.id.Product);
         this.ProductQuantity = (EditText) findViewById(R.id.productQuantity);
-        this.ProductReceiver = (EditText) findViewById(R.id.productReceiver);
-        this.ProductSender = (EditText) findViewById(R.id.productSender);
         this.DateSentTextView = (TextView) findViewById(R.id.edit_transaction_textView_DateSent);
         this.DateReceivedTextView = (TextView) findViewById(R.id.edit_transaction_textView_receivedDate);
         this.TransactionSubmitButton = (Button) findViewById(R.id.transactionSubmitButton);
@@ -195,6 +229,15 @@ public class TransactionActivity extends BaseActivity {
         this.ReceiverSpinner = (Spinner) findViewById(R.id.edit_transaction_spinner_receiverShop);
         this.sqLiteHelper = SqLiteHelper.getSqLiteHelperInstance(this);
         this.shopList = this.sqLiteHelper.getAllShops();
+        this.productList = this.sqLiteHelper.getAllProducts();
+        this.ProductSpinner = (Spinner) findViewById(R.id.edit_transaction_spinner_product);
         this.Transaction = new Transaction();
+    }
+
+    private void initializeForm(){
+        this.ProductName.setText(this.Transaction.Product.Name);
+        this.ProductQuantity.setText(Float.toString(this.Transaction.Quantity));
+        this.DateSentTextView.setText(DateFormatter.toStringDate(this.Transaction.DateReceived));
+        this.DateReceivedTextView.setText(DateFormatter.toStringDate(this.Transaction.DateSent));
     }
 }

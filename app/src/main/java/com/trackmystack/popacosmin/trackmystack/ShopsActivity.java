@@ -41,14 +41,14 @@ public class ShopsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops);
         this.intilizeAttributes();
-        Intent intent = getIntent();
+       /* Intent intent = getIntent();
         if (intent.hasExtra("shop")){
             Shop newShop = getNewShopFromBundle(intent);
             if (this.ShopList == null){
                 this.ShopList = new ArrayList<Shop>();
             }
             this.ShopList.add(newShop);
-        }
+        }*/
 
         if(this.ShopList == null){
             return;

@@ -70,6 +70,13 @@ public class SqLiteHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public boolean deleteProduct(Product product){
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = ProductScripts.deleteProduct(db, product);
+        db.close();
+        return result;
+    }
+
     public ArrayList<Product> getAllProducts(){
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Product> productList = (ArrayList<Product>) ProductScripts.getAllProducts(db);
@@ -121,6 +128,13 @@ public class SqLiteHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public boolean deleteShop(Shop shop){
+        SQLiteDatabase db = getWritableDatabase();
+        boolean result = ShopScripts.deleteShop(db, shop);
+        db.close();
+        return result;
+    }
+
     public ArrayList<Shop> getAllShops(){
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Shop> shopList =(ArrayList<Shop>) ShopScripts.getAllShops(db);
@@ -147,6 +161,13 @@ public class SqLiteHelper extends SQLiteOpenHelper {
     public boolean updateTransaction(Transaction transaction){
         SQLiteDatabase db = getWritableDatabase();
         boolean result = TransactionScripts.updateTranasaction(db, transaction);
+        db.close();
+        return result;
+    }
+
+    public boolean deleteTransaction(Transaction transaction){
+        SQLiteDatabase db = getWritableDatabase();
+        boolean result = TransactionScripts.deleteTransaction(db, transaction);
         db.close();
         return result;
     }

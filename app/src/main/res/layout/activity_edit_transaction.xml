@@ -15,8 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter Product Name"
+        android:hint="Enter Transaction Name"
         android:inputType="text|textPersonName" />
+
 
     <EditText
         android:id="@+id/productQuantity"
@@ -26,26 +27,10 @@
         android:hint="Enter quantity"
         android:inputType="numberDecimal" />
 
-    <EditText
-        android:id="@+id/productReceiver"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Receiver"
-        android:inputType="textPersonName" />
-
     <Spinner
         android:id="@+id/edit_transaction_spinner_receiverShop"
         android:layout_width="match_parent"
         android:layout_height="41dp" />
-
-    <EditText
-        android:id="@+id/productSender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Sender"
-        android:inputType="textPersonName" />
 
     <Spinner
         android:id="@+id/edit_transaction_spinner_senderShop"
